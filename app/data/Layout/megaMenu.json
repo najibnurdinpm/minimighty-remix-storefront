@@ -1,0 +1,20 @@
+[
+    {
+        "id": 0,
+        "title": "Product",
+        "url": "/apps",
+        "isDropdownOpen": false
+    },
+    {
+        "id": 1,
+        "title": "Collection",
+        "url": "/apps",
+        "isDropdownOpen": false
+    },
+    {
+        "id": 2,
+        "title": "Cart",
+        "url": "/apps",
+        "isDropdownOpen": false
+    }
+]

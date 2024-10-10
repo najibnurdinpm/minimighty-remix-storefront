@@ -1,0 +1,47 @@
+[
+    [
+        {
+            "id": 0,
+            "title": "Solutions",
+            "items": [
+                { "name": "Marketing", "href": "#" },
+                { "name": "Analytics", "href": "#" },
+                { "name": "Commerce", "href": "#" },
+                { "name": "Insights", "href": "#" }
+            ]
+        },
+        {
+            "id": 1,
+            "title": "Support",
+            "items": [
+                { "name": "Pricing", "href": "#" },
+                { "name": "Documentation", "href": "#" },
+                { "name": "Guides", "href": "#" },
+                { "name": "API Status", "href": "#" }
+            ]
+        }
+    ],
+    [
+        {
+            "id": 1,
+            "title": "Company",
+            "items": [
+                { "name": "About", "href": "/common-page/about" },
+                { "name": "Faq", "href": "/common-page/faq" },
+                { "name": "Contact", "href": "/common-page/contact" },
+                { "name": "Privacy Policy", "href": "/common-page/privacy-policy" },
+                { "name": "Step by step", "href": "/common-page/step-by-step" },
+                { "name": "Term and conditions", "href": "/common-page/term-condition" }
+            ]
+        },
+        {
+            "id": 1,
+            "title": "Legal",
+            "items": [
+                { "name": "Claim", "href": "#" },
+                { "name": "Privacy", "href": "#" },
+                { "name": "Terms", "href": "#" }
+            ]
+        }
+    ]
+]
