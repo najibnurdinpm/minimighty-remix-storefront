@@ -32,9 +32,9 @@ export default function BeforeLogin({isLogin, products}) {
                 <div class="lg:col-span-3">
                     <Shorting />
                     <div 
-                    class="mt-4 sm:mt-10"
+                      class="mt-4 sm:mt-10"
                     >
-                    <CardBeforeLogin products={products} />
+                            <CardBeforeLogin products={products} />
                     </div>
                 </div>
                 </div>
