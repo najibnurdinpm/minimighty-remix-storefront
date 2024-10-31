@@ -1,3 +1,5 @@
+import { CardApp } from "~/components/card";
+
 import {
     Dialog,
     DialogPanel,
@@ -21,22 +23,22 @@ export default function BeforeLogin({isLogin, products}) {
             <div class="px-4 py-8 sm:px-0 sm:pt-10 sm:pb-5 lg:px-0 lg:pt-28 lg:pb-16">
             <section aria-labelledby="title" class="text-center">
                 <h2 
-                className="font-extrabold text-4xl sm:text-5xl tracking-tight text-slate-900"
+                    className="font-extrabold text-4xl sm:text-5xl tracking-tight text-slate-900"
                 >
                 Product
                 </h2>
             </section>
             <section aria-labelledby="products-heading" class="pt-24">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                <Filter />
-                <div class="lg:col-span-3">
-                    <Shorting />
-                    <div 
-                      class="mt-4 sm:mt-10"
-                    >
+                    <Filter />
+                    <div class="lg:col-span-3">
+                        <Shorting />
+                        <div 
+                            class="mt-4 sm:mt-10"
+                        >
                             <CardBeforeLogin products={products} />
+                        </div>
                     </div>
-                </div>
                 </div>
             </section>
             </div>
@@ -112,8 +114,8 @@ function CardBeforeLogin({products}) {
             {
                 products.length && (
                     products.map((product) => 
-                    
-                        <li className="py-4 px-4 flex sm:mb-0 bg-white shadow ring-1 ring-black ring-opacity-5 rounded-lg relative">
+
+                        <CardApp>
                             <div className=" flex flex-col sm:flex-row sm:space-x-4 sm:min-w-0 sm:flex-1 sm:space-x-6 lg:space-x-8 ">
                                 <div className="relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 rounded-md ">
                                     <img className="w-full h-full flex-none rounded-md object-cover sm:h-full sm:w-48 shadow-sm ring-1 ring-black ring-opacity-5" src={product.url} />
@@ -125,7 +127,6 @@ function CardBeforeLogin({products}) {
                                 <div className="flex flex-col justify-between flex-1">
                                     <div className="">
                                     <h3 className="text-sm mt-4 sm:mt-0 font-medium text-gray-900 sm:mb-2">{product.title}</h3>
-                                    {/* <p v-if="!props.isProduct" className="mt-2 sm:mt-0 text-sm text-gray-500 ">{product.description}</p> */}
                                     <div
                                         className="relative sm:static block pb-20 sm:pb-20"
                                     >
@@ -141,10 +142,10 @@ function CardBeforeLogin({products}) {
                             <div className="mt-6 sm:mt-0 sm:ml-6 sm:w-40 sm:flex-none  hidden sm:flex  flex-1 flex-col justify-between">
                                 <div className="flex flex-col justify-between text-end w-full h-full">
                                 <p className=" font-medium text-gray-900">{'2335615'}</p>
-                                
+                            
                                 </div>
                             </div>
-                        </li>
+                        </CardApp>
                     )
                 )
             }
