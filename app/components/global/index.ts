@@ -1,4 +1,5 @@
 
 import Link from "./Link";
+import Pagination from "./Pagination";
 
-export { Link };
+export { Link, Pagination };

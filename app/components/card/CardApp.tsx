@@ -1,5 +1,9 @@
-interface ICardApp extends ICardGradient {
+export interface ICardApp {
+  children: string | JSX.Element | JSX.Element[];
+  className?: string;
+  hasSelector?: boolean;
   fullContent?: boolean;
+  component?: string;
   px?: string;
   py?: string;
   bgColor?: string;
@@ -7,6 +11,8 @@ interface ICardApp extends ICardGradient {
   position?: string;
   hasRing?: boolean;
 }
+
+type ICardAppFull = ICardApp;
 
 export default function CardApp({
   children,
@@ -27,12 +33,12 @@ export default function CardApp({
   const ring = hasRing ? 'ring-1 ring-black ring-opacity-5' : '';
   
   const dataSetClass = `shadow ${
-    px + ' ' 
-    + py + ' '
-    + ring + ' ' 
-    + rounded + ' ' 
-    + position + ''
-    + bgColor + ''
+    px + ' ' + 
+    py + ' ' + 
+    ring + ' ' + 
+    rounded + ' ' + 
+    position + '' + 
+    bgColor + ''
   }`
 
   const classes = `flex ${

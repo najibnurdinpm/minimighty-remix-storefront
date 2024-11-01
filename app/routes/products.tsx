@@ -18,11 +18,18 @@ export async function loader() {
 export default function products() {
 
     const { status, data } = useLoaderData<typeof loader>();
-    const { products } = data
+    const { products, filters, short, per_page, total, has_page, pages, next_page_url, previous_page_url, getPageName, current_page } = data
+
+    // current_page, per_page, total, pages
 
     return (
         <Product.BeforeLogin
             products={products}
+            filters={filters}
+            current_page={current_page}
+            per_page={per_page}
+            total={total}
+            pages={pages}
         />
     );
 }
