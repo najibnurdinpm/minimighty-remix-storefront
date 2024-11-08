@@ -1,5 +1,7 @@
 import { CardApp } from "~/components/card";
 import { Pagination } from "~/components/global";
+import { Product } from "~/components/section"
+
 
 import {
     Dialog,
@@ -33,7 +35,7 @@ export default function BeforeLogin({isLogin, products, filters, current_page, p
             </section>
             <section aria-labelledby="products-heading" class="pt-24">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                    <Filter 
+                    <Product.Sidebar 
                         filters={filters}
                     />
                     <div class="lg:col-span-3">
@@ -88,8 +90,7 @@ function Shorting() {
 }
 
 function Filter({filters}) {
-
-
+    
     return (
         <form class="hidden lg:block">
             {filters.length && (
@@ -129,54 +130,6 @@ function Filter({filters}) {
         
     )
 }
-// function Filter({filters}) {
-
-
-//     return (
-//        <Disclosure as="div" className="border-t border-gray-200 px-4 py-6">
-//            {!! filters && (
-//                filters.map((items) => items.options.map(option => console.log('option', option.name)) )
-//            )}
-
-//            {filters.length && (
-//                filters.map((items) => 
-//                 <>
-//                     <h3 className="-mx-2 -my-3 flow-root">
-//                         <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-//                         <span className="font-medium text-gray-900">{items.name}</span>
-//                         <span className="ml-6 flex items-center">
-//                             <PlusIcon aria-hidden="true" className="h-5 w-5 group-data-[open]:hidden" />
-//                             <MinusIcon aria-hidden="true" className="h-5 w-5 [.group:not([data-open])_&]:hidden" />
-//                         </span>
-//                         </DisclosureButton>
-//                     </h3>
-//                     <DisclosurePanel className="pt-6">
-//                         <div className="space-y-6">
-//                             {items.options && (
-//                                items.options.map(option => 
-//                                 <div className="flex items-center">
-//                                     <input
-//                                         type="checkbox"
-//                                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-//                                     />
-//                                     <label
-//                                         className="ml-3 min-w-0 flex-1 text-gray-500"
-//                                     >
-//                                         {option.name}
-//                                     </label>
-//                                 </div> 
-//                                ) 
-//                             )}
-                            
-//                         </div>
-//                     </DisclosurePanel>
-//                 </>
-//                )
-//            )}
-          
-//       </Disclosure>
-//     )
-// }
 
 function CardBeforeLogin({products}) {
 
