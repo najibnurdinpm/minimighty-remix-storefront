@@ -2,6 +2,22 @@ import { CardApp } from "~/components/card";
 import { Pagination } from "~/components/global";
 import { Product } from "~/components/section"
 
+import { handleSearch } from "~/routes/products"
+
+import {
+  useLoaderData,
+  useNavigation,
+  useSubmit,
+  Form,
+} from "@remix-run/react";
+
+import type {
+  LinksFunction,
+  LoaderFunctionArgs,
+} from "@remix-run/node";
+
+import { useEffect } from "react";
+
 
 import {
     Dialog,
@@ -19,9 +35,27 @@ import {
 
   import { MinusIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid'
 
+  export const loader = async ({
+    request,
+  }: LoaderFunctionArgs) => {
+    const url = new URL(request.url);
+    const q = url.searchParams.get("q");
+    // const response = await handleSearch(q);
+
+    console.log('response')
+    return json({  q });
+  };
+
 export default function BeforeLogin({isLogin, products, filters, current_page, per_page, total, pages}) {
 
-    console.log('before login', current_page, per_page, total, pages)
+    const { q } = useLoaderData<typeof loader>();
+
+    useEffect(() => {
+        const searchField = document.getElementById("q");
+        if (searchField instanceof HTMLInputElement) {
+          searchField.value = q || "";
+        }
+      }, [q]);
 
     return (
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -39,7 +73,7 @@ export default function BeforeLogin({isLogin, products, filters, current_page, p
                         filters={filters}
                     />
                     <div class="lg:col-span-3">
-                        <Shorting />
+                        <Shorting q={q} />
                         <div 
                             class="mt-4 sm:mt-10"
                         >
@@ -59,7 +93,17 @@ export default function BeforeLogin({isLogin, products, filters, current_page, p
     )
 }
 
-function Shorting() {
+function Shorting({q}) {
+    
+    const navigation = useNavigation();
+    const submit = useSubmit();
+
+    const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has(
+      "q"
+    );
+
     return (
         <section aria-labelledby="filter-heading" class="sm:py-6 py-2 sm:border-t sm:border-b border-gray-300">
       <h2 id="filter-heading" class="sr-only">Product filters</h2>
@@ -76,7 +120,27 @@ function Shorting() {
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                 </div>
-                <input v-model="props.search" type="text" class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Search product" />
+                <Form 
+                    id="search-form" 
+                    role="search"
+                    className="w-full"
+                    onChange={(event) => {
+                        const isFirstSearch = q === null;
+                        submit(event.currentTarget, {
+                            replace: !isFirstSearch,
+                        });
+                    }}
+                >
+                    <input 
+                        id="q"
+                        aria-label="Search products"
+                        defaultValue={q || ""} 
+                        class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
+                        placeholder="Search product"
+                        type="search"
+                        name="search" 
+                    />
+                </Form>
               </div>
               <button type="button" class="absolute z-50 inset-y-0 right-0 -ml-px inline-flex items-center gap-x-1.5 rounded-full px-2 py-2 text-sm font-semibold text-gray-100 rounded-full">
                 <XMarkIcon class="-ml-0.5 h-5 w-5 text-gray-400 hover:text-gray-500" aria-hidden="true" />
