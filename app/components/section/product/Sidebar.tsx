@@ -1,5 +1,16 @@
 import { useState } from 'react';
-import { Form } from '@remix-run/react';
+import { 
+  useLoaderData,
+  useNavigation,
+  useSubmit,
+  Form,
+} from '@remix-run/react';
+import { useEffect } from "react";
+
+import type {
+  json,
+  LoaderFunctionArgs,
+} from "@remix-run/node"
 
 import {
   Disclosure,
@@ -11,6 +22,16 @@ import {
   MinusIcon, 
   PlusIcon 
 } from '@heroicons/react/24/solid'
+
+export const loader = async ({
+    request,
+  }: LoaderFunctionArgs) => {
+    const url = new URL(request.url);
+    console.log('url', url)
+    const tags = url.searchParams.get("tags");
+    
+    return json({ tags });
+  };
 
 export let action = async ({ request }) => {
     const formData = await request.formData();
@@ -26,6 +47,10 @@ export let action = async ({ request }) => {
 
 export default function Sidebar({filters}) {
 
+    const { tags } = useLoaderData<typeof loader>();
+
+    console.log('tags', tags)
+
     const [isChecked, setIsChecked] = useState(false);
     const [ids, setIds] = useState([]);
 
@@ -34,12 +59,25 @@ export default function Sidebar({filters}) {
             ...ids,
             event.target.value
         ])
-        console.log('ids realtime', ids)
     };
+
+    // useEffect(() => {
+    //     const searchField = document.getElementById("tags");
+    //     if (searchField instanceof HTMLInputElement) {
+    //       searchField.value = q || "";
+    //     }
+    //   }, [q]);
+
+    useEffect(() => {
+        console.log(ids, '- Has changed')
+    },[ids]) 
 
 
     return (
-        <Form class="hidden lg:block" method="post">
+        <div 
+            class="hidden lg:block" 
+            method="post"
+        >
             {filters.length && (
             filters.map((items) => <Disclosure as="div" className="border-t border-gray-200 px-4 py-6">
                  <h3 className="-mx-2 -my-3 flow-root">
@@ -56,17 +94,31 @@ export default function Sidebar({filters}) {
                              {items.options && (
                                 items.options.map(option => 
                                  <div className="flex items-center">
-                                     <input
-                                         type="checkbox"
-                                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                         onChange={handleCheckboxChange}
-                                         value={option.id}
-                                     />
-                                     <label
-                                         className="ml-3 min-w-0 flex-1 text-gray-500"
+                                     <Form
+                                        onChange={(event) => {
+                                            handleCheckboxChange(event)
+                                            console.log('event disini', ids)
+                                            // const isFirstSearch = q === null;
+                                            // submit(event.currentTarget, {
+                                            //     replace: !isFirstSearch,
+                                            // });
+                                        }}
                                      >
-                                         {option.name} {isChecked}
-                                     </label>
+                                        <input
+                                            id="tags"
+                                            type="checkbox"
+                                            // defaultValue={}
+                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                            name="tags" 
+                                            //  onChange={handleCheckboxChange}
+                                             value={option.id}
+                                        />
+                                        <label
+                                            className="ml-3 min-w-0 flex-1 text-gray-500"
+                                        >
+                                            {option.name} {isChecked}
+                                        </label>
+                                     </Form>
                                  </div> 
                                 ) 
                              )}
@@ -75,6 +127,6 @@ export default function Sidebar({filters}) {
                      </DisclosurePanel>
             </Disclosure>) 
         )}
-        </Form>
+        </div>
     )
 }

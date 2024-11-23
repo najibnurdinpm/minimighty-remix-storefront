@@ -12,7 +12,7 @@ import {
 } from "@remix-run/react";
 
 import type {
-  LinksFunction,
+  json,
   LoaderFunctionArgs,
 } from "@remix-run/node";
 
@@ -33,29 +33,17 @@ import {
     TransitionRoot,
   } from '@headlessui/react'
 
-  import { MinusIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid'
-
-  export const loader = async ({
-    request,
-  }: LoaderFunctionArgs) => {
-    const url = new URL(request.url);
-    const q = url.searchParams.get("q");
-    // const response = await handleSearch(q);
-
-    console.log('response')
-    return json({  q });
-  };
+import { MinusIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid'
 
 export default function BeforeLogin({isLogin, products, filters, current_page, per_page, total, pages}) {
-
-    const { q } = useLoaderData<typeof loader>();
 
     useEffect(() => {
         const searchField = document.getElementById("q");
         if (searchField instanceof HTMLInputElement) {
-          searchField.value = q || "";
+          searchField.value = "";
         }
-      }, [q]);
+      }, []);
+
 
     return (
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -73,7 +61,7 @@ export default function BeforeLogin({isLogin, products, filters, current_page, p
                         filters={filters}
                     />
                     <div class="lg:col-span-3">
-                        <Shorting q={q} />
+                        <Shorting />
                         <div 
                             class="mt-4 sm:mt-10"
                         >
@@ -93,16 +81,10 @@ export default function BeforeLogin({isLogin, products, filters, current_page, p
     )
 }
 
-function Shorting({q}) {
+function Shorting() {
     
     const navigation = useNavigation();
     const submit = useSubmit();
-
-    const searching =
-    navigation.location &&
-    new URLSearchParams(navigation.location.search).has(
-      "q"
-    );
 
     return (
         <section aria-labelledby="filter-heading" class="sm:py-6 py-2 sm:border-t sm:border-b border-gray-300">
@@ -125,7 +107,7 @@ function Shorting({q}) {
                     role="search"
                     className="w-full"
                     onChange={(event) => {
-                        const isFirstSearch = q === null;
+                        const isFirstSearch = null;
                         submit(event.currentTarget, {
                             replace: !isFirstSearch,
                         });
@@ -134,7 +116,6 @@ function Shorting({q}) {
                     <input 
                         id="q"
                         aria-label="Search products"
-                        defaultValue={q || ""} 
                         class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
                         placeholder="Search product"
                         type="search"
