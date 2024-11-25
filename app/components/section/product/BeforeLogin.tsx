@@ -37,14 +37,6 @@ import { MinusIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/
 
 export default function BeforeLogin({isLogin, products, filters, current_page, per_page, total, pages}) {
 
-    useEffect(() => {
-        const searchField = document.getElementById("q");
-        if (searchField instanceof HTMLInputElement) {
-          searchField.value = "";
-        }
-      }, []);
-
-
     return (
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div class="px-4 py-8 sm:px-0 sm:pt-10 sm:pb-5 lg:px-0 lg:pt-28 lg:pb-16">
@@ -103,18 +95,15 @@ function Shorting() {
                   <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                 </div>
                 <Form 
-                    id="search-form" 
+                    // id="search-form" 
                     role="search"
                     className="w-full"
                     onChange={(event) => {
-                        const isFirstSearch = null;
-                        submit(event.currentTarget, {
-                            replace: !isFirstSearch,
-                        });
+                        submit(event.currentTarget);
                     }}
                 >
                     <input 
-                        id="q"
+                        // id="q"
                         aria-label="Search products"
                         class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
                         placeholder="Search product"

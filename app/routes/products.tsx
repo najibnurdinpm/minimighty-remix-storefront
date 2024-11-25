@@ -8,10 +8,11 @@ export async function loader({
 }: LoaderFunctionArgs) {
 
   let url = new URL(request.url);
+  // let search = url.searchParams.get("search");
   let search = url.searchParams.get("search");
-  let endPoint = `http://localhost:8000/api/products/all`
+  let endPoint = `http://localhost:8000/api/products/all?${url.searchParams.toString()}`
 
-  if (search) endPoint = endPoint.concat(url.search);
+  // if (search) endPoint = endPoint.concat(url.search);
 
   const response = await fetch(
     endPoint,

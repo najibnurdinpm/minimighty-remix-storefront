@@ -1,16 +1,10 @@
 import { useState } from 'react';
 import { 
-  useLoaderData,
-  useNavigation,
-  useSubmit,
   Form,
 } from '@remix-run/react';
 import { useEffect } from "react";
 
-import type {
-  json,
-  LoaderFunctionArgs,
-} from "@remix-run/node"
+import { useSearchParams } from '@remix-run/react';
 
 import {
   Disclosure,
@@ -22,54 +16,34 @@ import {
   MinusIcon, 
   PlusIcon 
 } from '@heroicons/react/24/solid'
-
-export const loader = async ({
-    request,
-  }: LoaderFunctionArgs) => {
-    const url = new URL(request.url);
-    console.log('url', url)
-    const tags = url.searchParams.get("tags");
-    
-    return json({ tags });
-  };
-
-export let action = async ({ request }) => {
-    const formData = await request.formData();
-    
-    const isChecked = formData.get('exampleCheckbox') === 'on';
-    
-    // Process data here (e.g., store in a database, handle logic, etc.)
-    console.log('formData', formData);
-  
-    return null;
-  };
   
 
 export default function Sidebar({filters}) {
-
-    const { tags } = useLoaderData<typeof loader>();
-
-    console.log('tags', tags)
-
-    const [isChecked, setIsChecked] = useState(false);
+    let [searchParams, setSearchParams] = useSearchParams();
     const [ids, setIds] = useState([]);
 
     const handleCheckboxChange = (event) => {
-        setIds([
-            ...ids,
-            event.target.value
-        ])
+
+      (event.target.checked) ? setIds([
+        ...ids,
+        event.target.value
+      ]) : setIds(oldValues => {
+        return oldValues.filter((_, i) => _ !== event.target.value)
+      })
+
     };
 
-    // useEffect(() => {
-    //     const searchField = document.getElementById("tags");
-    //     if (searchField instanceof HTMLInputElement) {
-    //       searchField.value = q || "";
-    //     }
-    //   }, [q]);
+    const newArray = () => {
+        if (!ids.length) return
+
+        setSearchParams((prev) => {
+          prev.set('tags', ids.toString());
+          return prev;
+        });
+    }
 
     useEffect(() => {
-        console.log(ids, '- Has changed')
+        newArray()
     },[ids]) 
 
 
@@ -92,37 +66,27 @@ export default function Sidebar({filters}) {
                      <DisclosurePanel className="pt-6">
                          <div className="space-y-6">
                              {items.options && (
-                                items.options.map(option => 
+                                items.options.map((option, index) => 
                                  <div className="flex items-center">
-                                     <Form
-                                        onChange={(event) => {
-                                            handleCheckboxChange(event)
-                                            console.log('event disini', ids)
-                                            // const isFirstSearch = q === null;
-                                            // submit(event.currentTarget, {
-                                            //     replace: !isFirstSearch,
-                                            // });
-                                        }}
-                                     >
+                                     <Form>
                                         <input
-                                            id="tags"
                                             type="checkbox"
-                                            // defaultValue={}
+                                            id={`checked-${index}`}
                                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                             name="tags" 
-                                            //  onChange={handleCheckboxChange}
+                                             onChange={handleCheckboxChange}
                                              value={option.id}
                                         />
                                         <label
+                                            for={`checked-${index}`}
                                             className="ml-3 min-w-0 flex-1 text-gray-500"
                                         >
-                                            {option.name} {isChecked}
+                                            {option.name}
                                         </label>
                                      </Form>
                                  </div> 
                                 ) 
                              )}
-                            
                          </div>
                      </DisclosurePanel>
             </Disclosure>) 
