@@ -53,7 +53,12 @@ export default function BeforeLogin({isLogin, products, filters, current_page, p
                         filters={filters}
                     />
                     <div class="lg:col-span-3">
-                        <Shorting />
+                    <section aria-labelledby="filter-heading" class="sm:py-6 py-2 sm:border-t sm:border-b border-gray-300">
+                        <h2 id="filter-heading" class="sr-only">Product filters</h2>
+                        <Product.InputSearch />
+                    </section>
+                        
+                        {/* <Shorting /> */}
                         <div 
                             class="mt-4 sm:mt-10"
                         >
