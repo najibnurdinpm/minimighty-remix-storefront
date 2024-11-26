@@ -99,7 +99,6 @@ export default function Pagination({current_page, per_page, total, pages}) {
     )
   }
  
-
   function ButtonPageDekstop({ page, children }: ILayout) {
 
     return (
