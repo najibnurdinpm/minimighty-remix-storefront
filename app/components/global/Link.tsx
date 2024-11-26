@@ -9,6 +9,7 @@ export default function Link(props: LinkProps) {
       to={to}
       className={className}
       {...resOfProps}
+      preventScrollReset
     />
   );
 }
