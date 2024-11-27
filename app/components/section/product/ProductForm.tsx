@@ -1,6 +1,10 @@
 import { Product } from "~/components/section"
 
 export default function ProductForm({variantOptions, variant}: any) {
+
+  variantOptions.map((variantOpt) => console.log('variantOpt', variantOpt.values) )
+
+  
   
     return (
       <>
