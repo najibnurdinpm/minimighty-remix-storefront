@@ -94,7 +94,7 @@ export default function Sidebar({filters}) {
                         for={`${items.handle}-${index}`}
                         className="ml-3 min-w-0 flex-1 text-gray-500"
                       >
-                        {option.name} {items.handle}
+                        {option.name}
                       </label>
                     </Form>
                   </div> 
