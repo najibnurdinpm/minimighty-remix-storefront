@@ -12,23 +12,21 @@ export default function BeforeLogin({products, filters, current_page, per_page, 
   }
 
   return (
-    <>
-      <Product.LayoutBeforeLogin
-        filters={filters}
-        dataPages={dataPages}
-      >
-        <ul className=" flow-root space-y-4 sm:space-y-8">
-          {
-            products.length && ( products.map(product => 
-              <CardApp>
-                <Product.ProductCardBeforeLogin 
-                  product={product}
-                />
-              </CardApp>
-            ))
-          }
-        </ul>
-      </Product.LayoutBeforeLogin>
-    </>
+    <Product.LayoutBeforeLogin
+      filters={filters}
+      dataPages={dataPages}
+    >
+      <ul className=" flow-root space-y-4 sm:space-y-8">
+        {
+          products.length && ( products.map(product => 
+            <CardApp>
+              <Product.ProductCardBeforeLogin 
+                product={product}
+              />
+            </CardApp>
+          ))
+        }
+      </ul>
+    </Product.LayoutBeforeLogin>
   )
 }

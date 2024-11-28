@@ -1,6 +1,19 @@
 import { Product } from "~/components/section"
+import { useState } from 'react';
 
 export default function ProductCardBeforeLogin({product}: any) {
+
+  const[quantity, setQuantity] = useState(1)
+  const[dataProduct, setDataProduct] = useState(product)
+  const {variant, variant_option} = dataProduct
+  const[dataVariantOption, setDataVariantOption] = useState(variant_option)
+
+  const changeActiveVariantOption = (optionId, indexVariantOption) => {
+
+    const updatedDataArray = dataVariantOption.map((items, index) => (indexVariantOption == index) ? items.values.map(item =>item.active_button = (item.id === optionId) ? true : false ) : items )
+
+    setDataProduct(updatedDataArray)
+  }
 
   return (
     <>
@@ -19,8 +32,9 @@ export default function ProductCardBeforeLogin({product}: any) {
                 className="relative sm:static block pb-20 sm:pb-20"
               >
                 <Product.ProductForm 
-                  variantOptions={product.variant_option}
+                  variantOptions={dataVariantOption}
                   variant={product.variant}
+                  changeActiveVariantOption={changeActiveVariantOption}
                 />
               </div>
             </div>
@@ -32,7 +46,11 @@ export default function ProductCardBeforeLogin({product}: any) {
           <p className=" font-medium text-gray-900">{'2335615'}</p>
         </div>
         <div className=" w-full sm:w-auto bg-green-400">
-          <Product.AddToCart />
+          <Product.AddToCart 
+            variantOptions={variant_option}
+            variant={variant}
+            quantity={quantity}
+          />
         </div>
       </div>
     </>

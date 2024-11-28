@@ -1,51 +1,12 @@
-let arrayValue = []
-
-export default function VariantOption({variantOptions}: any) {
-
-  const getChooseOptionVariant = (variantOptionId) => {
-
-    variantOptions.map( items => {
-
-      if (items.id === variantOptionId) {
-        items.active_button = true
-
-        if (items.active_button === true) {
-          arrayValue.push( items.value )
-        }
-
-        return
-      } 
-
-      items.active_button = false
-    } )
-
-    // variantOptions.map( items => {
-    //   const found = items.values.find((it) => it.active_button === true)
-
-    //   if( !found ) return false
-
-    //   const { value } = found
-
-    //   arrayValue.push( value )
-    // } )
-    
-    
-    // console.log('variantOptions, variantOptionId', variantOptions, variantOptionId)
-    // variantOption.map( items => items.active_button = ( items.id === variantOptionId ) ? true : false  )
-
-  }
+export default function VariantOption({variantOptionValues, changeActiveVariantOption, indexVariantOption}: any) {
 
   return (
-    variantOptions.length && (
-      variantOptions.map(option => 
+    variantOptionValues.length && (
+      variantOptionValues.map((option) => 
         <button 
-         onClick={() => {
-          getChooseOptionVariant(option.id)
-          console.log('arrayValue', arrayValue)
-    
-         }}
+         onClick={() => changeActiveVariantOption(option.id, indexVariantOption)}
           type="button" 
-          className="border border-gray-300 text-gray-700 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+          className={`border border-gray-300 ${option.active_button == true ? `bg-indigo-600 text-gray-100` : `bg-gray-50 text-gray-700` }  rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
         >
           { option.value }
         </button>
