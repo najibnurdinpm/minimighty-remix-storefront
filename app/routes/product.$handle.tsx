@@ -4,6 +4,7 @@ import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { StarIcon, MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/20/solid'
 import { CurrencyDollarIcon, GlobeAmericasIcon } from '@heroicons/react/24/outline'
 import { Product } from "~/components/section"
+import ProductSlider from "~/components/section/productdetail/ProductSlider"
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -93,11 +94,14 @@ export async function loader({
 export default function product({params}: LoaderFunctionArgs) {
 
   const [Slider, setSlider] = useState(null);
+  const [angka, setAngka] = useState(0);
 
   useEffect(() => {
     import("react-slick").then((Module) => {
       setSlider(() => Module.default);
     });
+
+    setAngka(1)
 
     console.log('Slider', Slider)
 
@@ -382,11 +386,44 @@ export default function product({params}: LoaderFunctionArgs) {
             ))}
           </div>
         </section>
-
+        
+        {angka}
               
-              {
-                Slider ? 'ada' : 'ga ada'
-              }
+        {Slider ? (
+<Slider {...sliderSettings}>
+<div>
+          <h3>1</h3>
+        </div>
+        <div>
+          <h3>2</h3>
+        </div>
+        <div>
+          <h3>3</h3>
+        </div>
+        <div>
+          <h3>4</h3>
+        </div>
+        <div>
+          <h3>5</h3>
+        </div>
+        <div>
+          <h3>6</h3>
+        </div>
+        <div>
+          <h3>7</h3>
+        </div>
+        <div>
+          <h3>8</h3>
+        </div>
+        <div>
+          <h3>9</h3>
+        </div>
+</Slider>
+) : (
+<>tidak ada slider</>
+)}
+
+<ProductSlider />
         
 
 
