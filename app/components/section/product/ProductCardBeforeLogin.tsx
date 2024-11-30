@@ -1,5 +1,6 @@
-import { Product } from "~/components/section"
+import { Link } from "@remix-run/react";
 import { useState } from 'react';
+import { Product } from "~/components/section"
 
 export default function ProductCardBeforeLogin({product}: any) {
 
@@ -20,14 +21,17 @@ export default function ProductCardBeforeLogin({product}: any) {
       <div className=" flex flex-col sm:flex-row sm:space-x-4 sm:min-w-0 sm:flex-1 sm:space-x-6 lg:space-x-8 ">
         <div className="relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 rounded-md ">
           <img className="w-full h-full flex-none rounded-md object-cover sm:h-full sm:w-48 shadow-sm ring-1 ring-black ring-opacity-5" src={product.url} />
-          <a href="#" className="absolute inset-0 focus:outline-none">
+          <Link to={`/product/${product.handle}`} className="absolute inset-0 focus:outline-none">
             <span className="sr-only">View details for {''}</span>
-          </a>
+          </Link>
+          {/* <a href="#" className="absolute inset-0 focus:outline-none">
+            <span className="sr-only">View details for {''}</span>
+          </a> */}
         </div>
         <div className="min-w-0 flex flex-1 ">
           <div className="flex flex-col justify-between flex-1">
             <div className="">
-              <h3 className="text-sm mt-4 sm:mt-0 font-medium text-gray-900 sm:mb-2">{product.title}</h3>
+              <h3 className="text-sm mt-4 sm:mt-0 font-medium text-gray-900 sm:mb-2">{product.handle}</h3>
               <div
                 className="relative sm:static block pb-20 sm:pb-20"
               >
